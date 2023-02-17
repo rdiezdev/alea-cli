@@ -1,0 +1,9 @@
+default_env = "dev"
+
+projects_folder = "/Users/ramonespana/alea/bitbucket/"
+
+[urls-dev]
+integrator-test-suite = "http://10.61.13.60:8080"
+
+[urls-stg]
+integrator-test-suite = "https://integrator-test-suite.stg.aleaplay.cloud"
