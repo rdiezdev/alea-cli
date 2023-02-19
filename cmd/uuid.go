@@ -7,10 +7,14 @@ import (
 	"golang.design/x/clipboard"
 )
 
+func init() {
+	rootCmd.AddCommand(uuidCmd)
+}
+
 var uuidCmd = &cobra.Command{
 	Use:   "uuid",
-	Short: "Generate a random UUID and copy it to clipboard",
-	Long:  `Generate a random UUID and copy it to clipboard`,
+	Short: "Generate a random UUID and copy it to clipboard (if possible)",
+	Long:  `Generate a random UUID and copy it to clipboard (if possible)`,
 	Run: func(cmd *cobra.Command, args []string) {
 
 		uuid, _ := uuid.NewRandom()
@@ -23,6 +27,4 @@ var uuidCmd = &cobra.Command{
 	},
 }
 
-func init() {
-	rootCmd.AddCommand(uuidCmd)
-}
+

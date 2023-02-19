@@ -1,4 +1,4 @@
-module aleaplay.com/alea-cli
+module aleaplay.com/alea
 
 go 1.18
 

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"aleaplay.com/alea-cli/pkg/httpclient"
+	"aleaplay.com/alea/pkg/httpclient"
 	"github.com/spf13/cobra"
 )
 

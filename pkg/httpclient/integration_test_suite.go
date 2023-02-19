@@ -31,19 +31,19 @@ func GetIntegrationTestStatus() (failedScenarios []string, err error) {
 
 func ExecuteScenario(integrator string, scenario string) (scenarioResult ScenarioExecutionResponse, err error) {
 	
-	return executeScenario(integrator + "/scenarios/" + scenario)
+	return execute(integrator + "/scenarios/" + scenario)
 }
 
 func ExecuteScenarioPath(scenarioPath string) (scenarioResult ScenarioExecutionResponse, err error) {
 	
-	return executeScenario(scenarioPath)
+	return execute(scenarioPath)
 }
 
-func executeScenario(scenario string) (scenarioResult ScenarioExecutionResponse, err error) {
+func execute(integratorAndScenario string) (scenarioResult ScenarioExecutionResponse, err error) {
 	
 	baseUrl := getBaseUrl()
 
-	res, err := http.Get(baseUrl + "/api/v1/" + scenario)
+	res, err := http.Get(baseUrl + "/api/v1/" + integratorAndScenario)
 
 	if err != nil {
 		fmt.Printf("Error fetching response from integrator-test-suite. %s", err)
@@ -58,6 +58,5 @@ func executeScenario(scenario string) (scenarioResult ScenarioExecutionResponse,
 
 func getBaseUrl() string {
 	env := viper.GetString("env")
-	baseUrl := viper.GetStringMapString("urls-"+env)["integrator-test-suite"]
-	return baseUrl
+	return viper.GetStringMapString("urls-" + env)["integrator-test-suite"]
 }

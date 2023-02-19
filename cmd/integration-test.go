@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"aleaplay.com/alea-cli/pkg/httpclient"
+	"aleaplay.com/alea/pkg/httpclient"
 	"github.com/spf13/cobra"
 )
 
@@ -22,10 +22,10 @@ var integrationTestCmd = &cobra.Command{
 	Args: cobra.MaximumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 
-		integratorName, _ := cmd.Flags().GetString("integrator")			
-		scenarioName, _ := cmd.Flags().GetString("scenario")
+		integrator, _ := cmd.Flags().GetString("integrator")			
+		scenario, _ := cmd.Flags().GetString("scenario")
 
-		if integratorName == "" && scenarioName == "" {
+		if integrator == "" && scenario == "" {
 			if len(args) == 0 {
 				fmt.Println("❌ You must specify an a path scenario, like 'amatic/scenarios/happy-path' or an integrator and a scenario using the flags --i and --s")
 				return
@@ -34,7 +34,7 @@ var integrationTestCmd = &cobra.Command{
 		}
 		
 
-		response, err := httpclient.ExecuteScenario(integratorName, scenarioName)
+		response, err := httpclient.ExecuteScenario(integrator, scenario)
 
 		if err != nil {
 			fmt.Printf("Error executing scenario \n %+v \n", err)

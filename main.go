@@ -1,6 +1,6 @@
 package main
 
-import "aleaplay.com/alea-cli/cmd"
+import "aleaplay.com/alea/cmd"
 
 
 func main() {

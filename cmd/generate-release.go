@@ -26,13 +26,6 @@ var generateReleaseCmd = &cobra.Command{
 	Short: "Generate a release for a project of your choice",
 	Long:  `Generate a release for a project of your choice`,
 	Args:  cobra.MaximumNArgs(1),
-	ValidArgsFunction: func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
-		fmt.Print(cmd)
-		fmt.Print(args)
-		fmt.Print(toComplete)
-
-		return []string{"a", "b", "c"}, cobra.ShellCompDirectiveNoFileComp
-	},
 	Run: func(cmd *cobra.Command, args []string) {
 
 		availableProjects := getProjectFolderNames()
