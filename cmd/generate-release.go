@@ -56,7 +56,7 @@ var generateReleaseCmd = &cobra.Command{
 
 		releaseBranchName := "release/v" + releaseVersion
 
-		createReleaseAndPushIt(releaseBranchName, projectSelected)
+		createRemoteBranch(releaseBranchName, projectSelected)
 	},
 }
 
@@ -86,9 +86,8 @@ func getProjectFolderNames() (projectFolderNames []string) {
 	return
 }
 
-func createReleaseAndPushIt(releaseBranchName string, dirName string) {
-	// TODO take from config
-	os.Chdir("/Users/ramonespana/alea/bitbucket/" + dirName)
+func createRemoteBranch(branchName string, gitDirectory string) {
+	os.Chdir(basePath + gitDirectory)
 
 	cmd := exec.Command("git", "fetch", "--all")
 
@@ -96,7 +95,7 @@ func createReleaseAndPushIt(releaseBranchName string, dirName string) {
 		log.Fatal(err)
 	}
 
-	cmd = exec.Command("git", "push", "origin", "origin/develop:refs/heads/" + releaseBranchName)
+	cmd = exec.Command("git", "push", "origin", "origin/develop:refs/heads/" + branchName)
 
 	if _, err := cmd.Output(); err != nil {
 		log.Fatal(err)
