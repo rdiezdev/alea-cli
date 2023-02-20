@@ -11,11 +11,8 @@ import (
 
 	"github.com/manifoldco/promptui"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 	"golang.org/x/exp/slices"
 )
-
-var basePath = viper.GetString("projects_folder")
 
 func init() {
 	rootCmd.AddCommand(generateReleaseCmd)
@@ -64,10 +61,11 @@ var generateReleaseCmd = &cobra.Command{
 }
 
 func getProjectFolderNames() (projectFolderNames []string) {
+
 	dirInfo, err := ioutil.ReadDir(basePath)
 
 	if err != nil {
-		fmt.Print(err)
+		fmt.Printf("No encuentra el fichero %s, %s", basePath, err)
 		os.Exit(1)
 	}
 
@@ -89,25 +87,21 @@ func getProjectFolderNames() (projectFolderNames []string) {
 }
 
 func createReleaseAndPushIt(releaseBranchName string, dirName string) {
+	// TODO take from config
 	os.Chdir("/Users/ramonespana/alea/bitbucket/" + dirName)
 
-	cmd := exec.Command("git", "checkout", "develop")
+	cmd := exec.Command("git", "fetch", "--all")
 
 	if _, err := cmd.Output(); err != nil {
 		log.Fatal(err)
 	}
 
-	cmd = exec.Command("git", "checkout", "-b", releaseBranchName)
+	cmd = exec.Command("git", "push", "origin", "origin/develop:refs/heads/" + releaseBranchName)
 
 	if _, err := cmd.Output(); err != nil {
 		log.Fatal(err)
 	}
 
-	cmd = exec.Command("git", "push", "origin", releaseBranchName)
-
-	if _, err := cmd.Output(); err != nil {
-		log.Fatal(err)
-	}
 }
 
 func getReleaseVersion(dirName string) string {

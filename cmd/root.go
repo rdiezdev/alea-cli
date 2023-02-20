@@ -8,6 +8,8 @@ import (
 	"github.com/spf13/viper"
 )
 
+var basePath string
+
 var rootCmd = &cobra.Command{
 	Use:   "alea",
 	Short: "Alea's cli productivity improver",
@@ -27,6 +29,7 @@ func Execute() {
 	defaultEnv := viper.GetString("default_env")
 
 	viper.SetDefault("env", defaultEnv)
+	basePath = viper.GetString("projects_folder")
 
 	rootCmd.PersistentFlags().StringP("env", "e", "dev", "Environment to run the command against. By default 'dev'")
 	viper.BindPFlag("env", rootCmd.PersistentFlags().Lookup("env"))
